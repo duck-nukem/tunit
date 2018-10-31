@@ -1,37 +1,50 @@
-import { Assert } from '../assertions';
-import { Test } from '../test';
+import { assertEquals, assertTrue, fail } from '../assertions';
+import { test } from '../test';
 
 export class AssertionsSpec {
-
-  @Test.that()
-  assertEqualsIsTruthy() {
-    console.assert(Assert.equals(true, true));
+  @test()
+  assertTrueWorks() {
+    console.assert(assertTrue(true));
   }
 
-  @Test.that()
+  @test()
+  assertTrueThrows() {
+    try {
+      assertTrue(false);
+      fail();
+    } catch (passOnThrow) {
+    }
+  }
+
+  @test()
+  assertEqualsIsTruthy() {
+    console.assert(assertEquals(true, true));
+  }
+
+  @test()
   assertEqualThrowsOnMismatch() {
     try {
-      Assert.equals(true, false);
-      Assert.fail();
+      assertEquals(true, false);
+      fail();
     } catch (passOnThrow) {
     }
   }
 
-  @Test.that()
+  @test()
   failShouldThrowAnError() {
     try {
-      Assert.fail();
+      fail();
     } catch (passOnThrow) {
     }
   }
 
-  @Test.that()
+  @test()
   failShouldThrowAnErrorWithACustomMessage() {
     const message = 'fail';
     try {
-      Assert.fail(message);
+      fail(message);
     } catch (passOnThrow) {
-      Assert.equals(passOnThrow.message, message);
+      assertEquals(passOnThrow.message, message);
     }
   }
 }

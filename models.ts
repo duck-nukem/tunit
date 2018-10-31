@@ -1,5 +1,11 @@
+export const enum RunStatus {
+  Passing = 'OK',
+  Failed = 'Failed',
+  Skipped = 'Skipped',
+}
+
 export interface RunResult {
-  isPassing: boolean;
+  runStatus: RunStatus;
   failureReason?: string;
 }
 

@@ -1,27 +1,42 @@
-import { Assert } from '../assertions';
-import { Test } from '../test';
+import { assertEquals, fail } from '../assertions';
+import { Setup, TearDown, test } from '../test';
 
-export class TestTUnit {
+export class TestTUnit implements Setup, TearDown {
   private hasTestRun = false;
+  private hasBeenSetup = false;
+  private hasBeenToreDown = false;
 
-  @Test.that()
+  setup(): void {
+    this.hasBeenSetup = true;
+  }
+
+  tearDown(): void {
+    this.hasBeenToreDown = true;
+  }
+
+  @test()
   testIsRunnable() {
     this.hasTestRun = true;
-    Assert.equals(this.hasTestRun, true);
+    assertEquals(this.hasTestRun, true);
   }
 
-  @Test.that({name: 'CuStOm NaMe'})
+  @test({name: 'CuStOm NaMe'})
   testUsesCustomName() {
-    Assert.equals(true, true);
+    assertEquals(true, true);
   }
 
-  @Test.that()
+  @test()
   testHasSetup() {
-    Assert.fail('Not implemented');
+    assertEquals(this.hasBeenSetup, true);
   }
 
-  @Test.that()
+  @test()
   testHasTearDown() {
-    Assert.fail('Not implemented');
+    assertEquals(this.hasBeenToreDown, true);
+  }
+
+  @test({skip: true})
+  testCanBeSkipped() {
+    fail('Test has been executed, but should have been skipped');
   }
 }

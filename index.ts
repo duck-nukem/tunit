@@ -74,16 +74,16 @@ function printStatus(testResults: Map<string, Set<TestResult>>): void {
     const results = testResults.get(suiteName);
     const total = results.size;
     const failed = Array.from(results.values())
-        .filter(testResult => !testResult.isPassing)
+        .filter(testResult => !testResult.runStatus)
         .length;
     const passing = total - failed;
     console.log(`\n${suiteName} (${total}/${passing})`);
 
     results.forEach(result => {
-      const passingStringRepr = result.isPassing ? 'OK' : 'Failed';
-      console.log(`-- ${result.testName}: ${passingStringRepr}`);
+      const runStatus = result.runStatus;
+      console.log(`-- ${result.testName}: ${runStatus}`);
 
-      if (!result.isPassing) {
+      if (!result.runStatus) {
         console.error(`   Reason: ${result.failureReason}`);
       }
 
