@@ -27,3 +27,5 @@ export class TestTUnit implements Setup, TearDown {
     assertEquals(true, false);
   }
 ```
+
+![execution results in terminal](https://raw.githubusercontent.com/kreatemore/tunit/master/screenshot.png)
